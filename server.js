@@ -14,7 +14,9 @@ app.use((req, res, next) => {
   var log = `${now}: ${req.method} ${req.url}`;
 
   console.log(log);
-  fs.appendFile('server.log', log + '\n');
+  fs.appendFile('server.log', log + '\n', (err) => {
+    if (err) throw err;
+  });
   next();
 });
 
@@ -53,5 +55,5 @@ app.get('/bad', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server is up on port {port}`);
+  console.log(`Server is up on port ${port}`);
 });
